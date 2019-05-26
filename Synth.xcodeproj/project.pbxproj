@@ -11,7 +11,7 @@
 		4BF93B80229ABC130064CC90 /* mixr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B7C229ABC130064CC90 /* mixr.cpp */; };
 		4BF93B81229ABC130064CC90 /* synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B7D229ABC130064CC90 /* synth.cpp */; };
 		4BF93B85229ABC320064CC90 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B64229AB4E40064CC90 /* main.cpp */; };
-		4BF93B88229ABC570064CC90 /* filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B86229ABC570064CC90 /* filter.cpp */; };
+		4BF93B8B229ABE6F0064CC90 /* filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B8A229ABE6F0064CC90 /* filter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,8 +35,8 @@
 		4BF93B7C229ABC130064CC90 /* mixr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mixr.cpp; path = Synth/mixr.cpp; sourceTree = "<group>"; };
 		4BF93B7D229ABC130064CC90 /* synth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = synth.cpp; path = Synth/synth.cpp; sourceTree = "<group>"; };
 		4BF93B7E229ABC130064CC90 /* synth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = synth.h; path = Synth/synth.h; sourceTree = "<group>"; };
-		4BF93B86229ABC570064CC90 /* filter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = filter.cpp; sourceTree = "<group>"; };
-		4BF93B87229ABC570064CC90 /* filter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = filter.hpp; sourceTree = "<group>"; };
+		4BF93B89229ABE6F0064CC90 /* filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = filter.hpp; path = Synth/filter.hpp; sourceTree = "<group>"; };
+		4BF93B8A229ABE6F0064CC90 /* filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filter.cpp; path = Synth/filter.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +69,8 @@
 		4BF93B63229AB4E40064CC90 /* Synth */ = {
 			isa = PBXGroup;
 			children = (
-				4BF93B86229ABC570064CC90 /* filter.cpp */,
-				4BF93B87229ABC570064CC90 /* filter.hpp */,
+				4BF93B8A229ABE6F0064CC90 /* filter.cpp */,
+				4BF93B89229ABE6F0064CC90 /* filter.hpp */,
 				4BF93B7C229ABC130064CC90 /* mixr.cpp */,
 				4BF93B7A229ABC130064CC90 /* mixr.h */,
 				4BF93B79229ABC130064CC90 /* osc.cpp */,
@@ -139,8 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BF93B85229ABC320064CC90 /* main.cpp in Sources */,
-				4BF93B88229ABC570064CC90 /* filter.cpp in Sources */,
 				4BF93B7F229ABC130064CC90 /* osc.cpp in Sources */,
+				4BF93B8B229ABE6F0064CC90 /* filter.cpp in Sources */,
 				4BF93B81229ABC130064CC90 /* synth.cpp in Sources */,
 				4BF93B80229ABC130064CC90 /* mixr.cpp in Sources */,
 			);
