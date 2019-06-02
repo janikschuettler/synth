@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BE6CC2422A01E500007BD09 /* midi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6CC2022A01E4F0007BD09 /* midi.cpp */; };
+		4BE6CC2722A086320007BD09 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BE6CC2622A086320007BD09 /* utils.cpp */; };
 		4BF93B7F229ABC130064CC90 /* osc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B79229ABC130064CC90 /* osc.cpp */; };
 		4BF93B80229ABC130064CC90 /* mixr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B7C229ABC130064CC90 /* mixr.cpp */; };
 		4BF93B81229ABC130064CC90 /* synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF93B7D229ABC130064CC90 /* synth.cpp */; };
@@ -27,6 +29,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4BE6CC2022A01E4F0007BD09 /* midi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = midi.cpp; path = Synth/midi.cpp; sourceTree = "<group>"; };
+		4BE6CC2122A01E4F0007BD09 /* audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio.h; path = Synth/audio.h; sourceTree = "<group>"; };
+		4BE6CC2222A01E4F0007BD09 /* midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = midi.h; path = Synth/midi.h; sourceTree = "<group>"; };
+		4BE6CC2622A086320007BD09 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = Synth/utils.cpp; sourceTree = "<group>"; };
+		4BE6CC2822A0863C0007BD09 /* matplotlibcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matplotlibcpp.h; sourceTree = "<group>"; };
 		4BF93B61229AB4E40064CC90 /* Synth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Synth; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF93B64229AB4E40064CC90 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4BF93B79229ABC130064CC90 /* osc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osc.cpp; path = Synth/osc.cpp; sourceTree = "<group>"; };
@@ -69,14 +76,19 @@
 		4BF93B63229AB4E40064CC90 /* Synth */ = {
 			isa = PBXGroup;
 			children = (
-				4BF93B8A229ABE6F0064CC90 /* filter.cpp */,
+				4BE6CC2122A01E4F0007BD09 /* audio.h */,
+				4BE6CC2022A01E4F0007BD09 /* midi.cpp */,
+				4BE6CC2222A01E4F0007BD09 /* midi.h */,
 				4BF93B89229ABE6F0064CC90 /* filter.hpp */,
-				4BF93B7C229ABC130064CC90 /* mixr.cpp */,
+				4BF93B8A229ABE6F0064CC90 /* filter.cpp */,
+				4BE6CC2822A0863C0007BD09 /* matplotlibcpp.h */,
+				4BE6CC2622A086320007BD09 /* utils.cpp */,
 				4BF93B7A229ABC130064CC90 /* mixr.h */,
-				4BF93B79229ABC130064CC90 /* osc.cpp */,
+				4BF93B7C229ABC130064CC90 /* mixr.cpp */,
 				4BF93B7B229ABC130064CC90 /* osc.h */,
-				4BF93B7D229ABC130064CC90 /* synth.cpp */,
+				4BF93B79229ABC130064CC90 /* osc.cpp */,
 				4BF93B7E229ABC130064CC90 /* synth.h */,
+				4BF93B7D229ABC130064CC90 /* synth.cpp */,
 				4BF93B64229AB4E40064CC90 /* main.cpp */,
 			);
 			path = Synth;
@@ -140,6 +152,8 @@
 			files = (
 				4BF93B85229ABC320064CC90 /* main.cpp in Sources */,
 				4BF93B7F229ABC130064CC90 /* osc.cpp in Sources */,
+				4BE6CC2422A01E500007BD09 /* midi.cpp in Sources */,
+				4BE6CC2722A086320007BD09 /* utils.cpp in Sources */,
 				4BF93B8B229ABE6F0064CC90 /* filter.cpp in Sources */,
 				4BF93B81229ABC130064CC90 /* synth.cpp in Sources */,
 				4BF93B80229ABC130064CC90 /* mixr.cpp in Sources */,
@@ -264,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-lpython2.7";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -272,6 +287,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-lpython2.7";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

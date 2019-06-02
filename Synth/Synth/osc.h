@@ -1,63 +1,100 @@
-//#include <iostream>
+//
+//  osc.h
+//  Synth
+//
+//  Created by Janik Schütter on 5/26/19.
+//  Copyright © 2019 Janik Schütter. All rights reserved.
+//
+
+#ifndef osc_hpp
+#define osc_hpp
+
 #include <cmath>
 #include <limits>
+#include <map>
 #include <stdint.h>
+
+#include "audio.h"
+#include "mixr.h"
+
 
 #define SINE        1
 #define SAW         2
 #define SQUARE      3
 #define TRIANGLE    4
+#define NOISE       5
+
+typedef long int tick_counter;
+
+#define TICK_MAX  (float) std::numeric_limits<tick_counter>::max();
 
 
 class WaveGenerator
 {
-
-  long int phase;
+  audio value_;
+  tick_counter phase_;
+  
+  int   waveform_;
+  float frequency_;
 
 public:
   WaveGenerator();
-  ~WaveGenerator();
+  WaveGenerator(float frequency, int waveform);
 
-  int   waveform;
-  float frequency;
+  void tick();
+  audio output();
+  
+  void waveform(int waveform);
+  int  waveform();
+  void  frequency(float frequency);
+  float frequency();
+};
 
-  float tick();
+struct voiceWrapper {
+  uint8_t pitch;
+  uint8_t velocity;
+  WaveGenerator oscillator;
 };
 
 
-class Oscillator
+class Oscillator : public AudioModule
 {
 
-  WaveGenerator voices[5];
-  float midiPhaseIncrement[128];
-  float sampleRate;
+  voiceWrapper voices2_[1];
+  std::map<int, voiceWrapper> voices_;
+  float midiPhaseIncrement_[128];
+  float sampleRate_;
+  
+  Mixr oscMixr;
+  
+  float value_;
 
-  int   nVoices;
-  int   waveform;
-  int   pitch;
-  int   detuneCoarse;
-  float detuneFine;
-  float volume;
+  int   nVoices_;
+  int   waveform_;
+  int   pitch_;
+  float detune_;
+  
+  int keyId(uint8_t pitch, uint8_t velocity);
 
 public:
   Oscillator();
-  ~Oscillator();
+  
+  // getters and setters
+  void  nVoices(int nVoices);
+  int   nVoices();
+  void  waveform(int waveform);
+  int   waveform();
+  void  pitch(int pitch);
+  int   pitch();
+  void  detune(float detune);
+  float detune();
 
-  float tick();
+  void tick();
+  audio output();
 
   void handleNoteOn(uint8_t pitch, uint8_t velocity);
   void handleNoteOff(uint8_t pitch, uint8_t velocity);
-
-  void  setNVoices(int nVoices_);
-  int   getNVoices();
-  void  setWaveform(int waveform_);
-  int   getWaveform();
-  void  setPitch(int pitch_);
-  int   getPitch();
-  void  setDetuneCoarse(int detuneCoarse_);
-  int   getDetuneCoarse();
-  void  setDetuneFine(float detuneFine_);
-  float getDetuneFine();
-  void  setVolume(float volume_);
-  float getVolume();
 };
+
+
+#endif /* osc_hpp */
