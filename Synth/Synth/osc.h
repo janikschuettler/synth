@@ -29,7 +29,7 @@ typedef long int tick_counter;
 #define TICK_MAX  (float) std::numeric_limits<tick_counter>::max();
 
 
-class WaveGenerator
+class WaveGenerator : public AudioModule
 {
   audio value_;
   tick_counter phase_;
@@ -53,7 +53,7 @@ public:
 struct voiceWrapper {
   uint8_t pitch;
   uint8_t velocity;
-  WaveGenerator oscillator;
+  WaveGenerator* oscillator;
 };
 
 
@@ -61,7 +61,7 @@ class Oscillator : public AudioModule
 {
 
   voiceWrapper voices2_[1];
-  std::map<int, voiceWrapper> voices_;
+  std::map<int, voiceWrapper*> voices_;
   float midiPhaseIncrement_[128];
   float sampleRate_;
   

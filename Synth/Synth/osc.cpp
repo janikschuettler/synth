@@ -84,7 +84,7 @@ Oscillator::Oscillator() {
   pitch_        = 0;
   detune_       = 0.0;
   
-  oscMixr       = Mixr(nVoices_);
+  oscMixr       = Mixr();
 
   sampleRate_   = 44100.0;
 
@@ -101,9 +101,9 @@ void  Oscillator::nVoices(int nVoices) { nVoices_ = nVoices; }
 int   Oscillator::nVoices() { return nVoices_; }
 void  Oscillator::waveform(int waveform) {
   waveform_ = waveform;
-  for (std::pair<int, voiceWrapper> voice : voices_) {
-    voice.second.oscillator.waveform(waveform);
-  }
+//  for (std::pair<int, voiceWrapper> voice : voices_) {
+//    voice.second.oscillator.waveform(waveform);
+//  }
 }
 int   Oscillator::waveform() { return waveform_; }
 void  Oscillator::pitch(int pitch) { pitch_ = pitch; }
@@ -114,29 +114,48 @@ float Oscillator::detune() { return detune_; }
 
 void Oscillator::tick() {
   value_ = 0.0;
-  for (std::pair<int, voiceWrapper> voice : voices_) {
-    WaveGenerator *oscillator = &voice.second.oscillator;
+  
+  for (std::pair<int, voiceWrapper*> voice : voices_) {
+    WaveGenerator *oscillator = voice.second->oscillator;
+    
+    float pitch = voice.second->pitch + detune_;
+    float frequency = (pow(2.0,(pitch-69.0)/12.0)) * 440.0;
+    
+    oscillator->waveform(waveform_);
+    oscillator->frequency(frequency);
+
+    std::cout << "id loop " << voice.second->oscillator << std::endl;
+
     oscillator->tick();
-//    voice.second.oscillator.tick();
-    // temp implementation
-    audio shiftedOutput = (oscillator->output() + 1.0) / 2.0;
-    value_ += shiftedOutput;
   }
+  std::cout << "id end " << std::endl;
 }
 
 audio Oscillator::output() {
   return value_;
+//  return (oscMixr.output() + 1.0) / 2.0;
 }
 
 void Oscillator::handleNoteOn(uint8_t pitch, uint8_t velocity) {
-  float frequency = midiPhaseIncrement_[pitch];
-  WaveGenerator newWaveGenerator(frequency, waveform_);
-  voiceWrapper newVoice {pitch, velocity, newWaveGenerator};
+  WaveGenerator newWaveGenerator(0.0, waveform_);
+  voiceWrapper newVoice {pitch, velocity, &newWaveGenerator};
   
-  voices_[keyId(pitch, velocity)] = newVoice;
+  int id = keyId(pitch, velocity);
+  
+  voices_[id] = &newVoice;
+  oscMixr.addChannel(id);
+  oscMixr.channel(id)->input(newWaveGenerator);
+  
+  std::cout << "id &newWaveGenerator " << &newWaveGenerator << std::endl;
+  std::cout << "id oscMixr.channel(id) " << oscMixr.channel(id) << std::endl;
+  std::cout << "id oscMixr.channel(id)->input() " << oscMixr.channel(id)->input() << std::endl;
+  std::cout << "test " << oscMixr.channel(id)->volume() << std::endl;
 }
 
 void Oscillator::handleNoteOff(uint8_t pitch, uint8_t velocity) {
+  int id = keyId(pitch, velocity);
+  
+  oscMixr.deleteChannel(id);
   voices_.erase(keyId(pitch, velocity));
 }
 

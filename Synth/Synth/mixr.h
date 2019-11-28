@@ -10,6 +10,7 @@
 #define mixr_hpp
 
 #include <iostream>
+#include <map>
 #include "audio.h"
 
 class MixrChannel : public AudioModule {
@@ -29,18 +30,16 @@ public:
 
 class Mixr : public AudioModule
 {
-  int nChannels_ = 5;
-  MixrChannel* channels_;
+  std::map<int, MixrChannel*> channels_;
   
 public:
   Mixr();
-  Mixr(int nChannels);
-  
-  int  nChannels();
-  void nChannels(int nChannels);
   
   audio output();
-  MixrChannel* channel(int channelIndex);
+  
+  MixrChannel* addChannel(int channelId);
+  void deleteChannel(int channelId);
+  MixrChannel* channel(int channelId);
 };
 
 #endif /* mixr_hpp */

@@ -12,7 +12,11 @@ MixrChannel::MixrChannel() {
   volume_ = 1.0;
 }
 
-void MixrChannel::input(AudioModule &input) { input_ = &input; }
+void MixrChannel::input(AudioModule &input) {
+  std::cout << "id input this " << this << std::endl;
+  std::cout << "id input " << &input << std::endl;
+  input_ = &input;
+}
 AudioModule* MixrChannel::input() { return input_; }
 void  MixrChannel::volume(float volume) { volume_ = volume; }
 float MixrChannel::volume() { return volume_; }
@@ -24,24 +28,15 @@ audio MixrChannel::output() {
 
 
 Mixr::Mixr() {
-  Mixr(2);
 }
-
-Mixr::Mixr(int nChannels) {
-  nChannels_ = nChannels;
-  channels_  = new MixrChannel[nChannels_];
-}
-
-int Mixr::nChannels() { return nChannels_; }
-void Mixr::nChannels(int nChannels) { nChannels_ = nChannels; }
 
 audio Mixr::output() {
   audio output  = 0.0;
   float volumes = 0.0;
   
-  for (int i = 0; i < nChannels_; i++) {
-    output  += channels_[i].output();
-    volumes += channels_[i].volume();
+  for (std::pair<int, MixrChannel*> channel : channels_) {
+    output  += channel.second->output();
+    volumes += channel.second->volume();
   }
   
   output /= volumes;
@@ -49,6 +44,20 @@ audio Mixr::output() {
   return output;
 }
 
-MixrChannel* Mixr::channel(int channelIndex) {
-  return &channels_[channelIndex];
+MixrChannel* Mixr::addChannel(int channelId) {
+  MixrChannel newMixrChannel;
+  channels_[channelId] = &newMixrChannel;
+  
+  std::cout << "Mixr: adding new channel with location " << &newMixrChannel << std::endl;
+  std::cout << "Mixr: adding new channel with location " << channels_[channelId] << std::endl;
+  
+  return Mixr::channel(channelId);
+}
+
+void Mixr::deleteChannel(int channelId) {
+  channels_.erase(channelId);
+}
+
+MixrChannel* Mixr::channel(int channelId) {
+  return channels_[channelId];
 }
